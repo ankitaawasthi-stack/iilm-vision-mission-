@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IILM – Mechanical & Allied Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --crimson: #b01c2e;
+    --crimson-light: #d42a40;
+    --gold: #e8a020;
+    --teal: #2a8fa0;
+    --orange: #e05c20;
+    --green: #2a8040;
+    --cream: #fdf8f2;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--text);
+  }
+ 
+  /* ── Animated starfield bg ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(176,28,46,.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(26,39,68,.9) 0%, transparent 70%),
+      linear-gradient(160deg, #0d1b3e 0%, #1a2744 50%, #0d1b3e 100%);
+    z-index: 0;
+  }
+ 
+  /* ── Header ── */
+  header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 2.5rem;
+    background: rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    animation: slideDown .7s ease both;
+  }
+ 
+  .logo-box {
+    width: 56px; height: 56px;
+    background: white;
+    border-radius: 10px;
+    display: grid; place-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -1px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  }
+ 
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+ 
+  header h1 span { color: var(--gold); }
+ 
+  .dept-badge {
+    margin-left: auto;
+    background: var(--crimson);
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    padding: .35rem .85rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    box-shadow: 0 0 18px rgba(176,28,46,.5);
+  }
+ 
+  /* ── Main layout ── */
+  main {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+ 
+  /* ── Section title ── */
+  .section-title {
+    text-align: center;
+    margin-bottom: 2.8rem;
+    animation: fadeUp .7s .2s ease both;
+  }
+ 
+  .section-title h2 {
+    display: inline-block;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: #fff;
+    position: relative;
+    padding-bottom: .6rem;
+  }
+ 
+  .section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--crimson), var(--gold));
+    border-radius: 2px;
+  }
+ 
+  /* ── Vision card ── */
+  .vision-card {
+    background: linear-gradient(135deg, var(--crimson) 0%, #7c1220 100%);
+    border-radius: 20px;
+    padding: 2.2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease;
+    box-shadow: 0 8px 40px rgba(176,28,46,.35);
+    animation: fadeUp .7s .35s ease both;
+  }
+ 
+  .vision-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(176,28,46,.5); }
+ 
+  .vision-card::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+  }
+ 
+  .vision-card::after {
+    content: '';
+    position: absolute;
+    right: 30px; bottom: -60px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+ 
+  .vision-label {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    margin-bottom: .5rem;
+  }
+ 
+  .vision-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: .9rem;
+  }
+ 
+  .vision-card p {
+    color: rgba(255,255,255,.9);
+    font-size: .97rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .vision-eye {
+    position: absolute;
+    right: 2rem; top: 50%; transform: translateY(-50%);
+    font-size: 3.5rem;
+    opacity: .15;
+    user-select: none;
+  }
+ 
+  /* ── Mission grid ── */
+  .mission-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    animation: fadeUp .7s .5s ease both;
+  }
+ 
+  .mission-heading::before {
+    content: '';
+    display: block;
+    width: 28px; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+ 
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.1rem;
+  }
+ 
+  /* ── Mission card ── */
+  .m-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    padding: 1.5rem 1.4rem;
+    cursor: pointer;
+    transition: transform .3s ease, background .3s ease, box-shadow .3s ease, border-color .3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    animation: fadeUp .7s ease both;
+  }
+ 
+  .m-card:nth-child(1) { animation-delay: .55s; --accent: var(--teal); }
+  .m-card:nth-child(2) { animation-delay: .65s; --accent: var(--orange); }
+  .m-card:nth-child(3) { animation-delay: .75s; --accent: var(--green); }
+  .m-card:nth-child(4) { animation-delay: .85s; --accent: var(--gold); }
+ 
+  .m-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .35s ease;
+    border-radius: inherit;
+  }
+ 
+  .m-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    background: rgba(255,255,255,.1);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(0,0,0,.3), 0 0 0 1px var(--accent);
+  }
+ 
+  .m-card:hover::before { opacity: .12; }
+ 
+  .m-card.active {
+    background: rgba(255,255,255,.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent), 0 12px 40px rgba(0,0,0,.3);
+    transform: translateY(-4px);
+  }
+ 
+  .m-card.active::before { opacity: .15; }
+ 
+  /* number badge */
+  .m-num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--accent);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: .85rem;
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    transition: transform .3s ease;
+  }
+ 
+  .m-card:hover .m-num, .m-card.active .m-num { transform: scale(1.1) rotate(-3deg); }
+ 
+  .m-card h4 {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .5rem;
+    position: relative; z-index: 1;
+  }
+ 
+  .m-card p {
+    font-size: .875rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,.82);
+    position: relative; z-index: 1;
+  }
+ 
+  /* icon strip */
+  .m-icon {
+    position: absolute;
+    right: 1.1rem; bottom: .9rem;
+    font-size: 2rem;
+    opacity: .12;
+    transition: opacity .3s ease, transform .3s ease;
+    user-select: none;
+  }
+ 
+  .m-card:hover .m-icon, .m-card.active .m-icon {
+    opacity: .25;
+    transform: scale(1.2) rotate(5deg);
+  }
+ 
+  /* ── Detail panel ── */
+  .detail-panel {
+    margin-top: 1.5rem;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    padding: 0 1.8rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(.4,0,.2,1), padding .4s ease, opacity .4s ease;
+    opacity: 0;
+    backdrop-filter: blur(10px);
+  }
+ 
+  .detail-panel.open {
+    max-height: 240px;
+    padding: 1.5rem 1.8rem;
+    opacity: 1;
+  }
+ 
+  .detail-panel .dp-label {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .4rem;
+  }
+ 
+  .detail-panel .dp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: .7rem;
+  }
+ 
+  .detail-panel p {
+    font-size: .9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+  }
+ 
+  /* ── Keyword pills ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .8rem;
+  }
+ 
+  .pill {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.8);
+    font-size: .72rem;
+    font-weight: 500;
+    padding: .28rem .75rem;
+    border-radius: 20px;
+    transition: background .2s, color .2s;
+  }
+ 
+  .pill:hover { background: var(--gold); color: var(--navy); }
+ 
+  /* ── Footer strip ── */
+  footer {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 1.2rem;
+    color: rgba(255,255,255,.3);
+    font-size: .75rem;
+    letter-spacing: .05em;
+  }
+ 
+  /* ── Animations ── */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    header { padding: 1rem 1.2rem; }
+    .dept-badge { display: none; }
+    main { padding: 2rem 1.1rem 3rem; }
+    .vision-eye { display: none; }
+    .mission-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- Header -->
+<header>
+  <div class="logo-box">IILM</div>
+  <h1>IILM <span>University</span><br>Department of Mechanical &amp; Allied Engineering</h1>
+  <div class="dept-badge">Vision &amp; Mission</div>
+</header>
+ 
+<main>
+ 
+  <!-- Section title -->
+  <div class="section-title">
+    <h2>Vision &amp; Mission</h2>
+  </div>
+ 
+  <!-- Vision card -->
+  <div class="vision-card" onclick="toggleVision(this)" aria-expanded="false">
+    <div class="vision-label">Our Vision</div>
+    <h3>Globally Recognized Excellence</h3>
+    <p>To be a globally recognized Department of Mechanical and Allied Engineering that nurtures innovative engineers and researchers, committed to sustainable technological solutions and advancing engineering excellence for societal benefit.</p>
+    <div class="vision-eye">🔭</div>
+  </div>
+ 
+  <!-- Mission section -->
+  <div class="mission-heading">Our Mission</div>
+ 
+  <div class="mission-grid" id="missionGrid">
+ 
+    <div class="m-card" onclick="selectCard(this, 0)" data-index="0">
+      <div class="m-num">M1</div>
+      <h4>Core Foundation</h4>
+      <p>Provide a strong foundation in core principles through inclusive, outcome-based education that stimulates analytical and critical thinking.</p>
+      <div class="m-icon">📐</div>
+    </div>
+ 
+    <div class="m-card" onclick="selectCard(this, 1)" data-index="1">
+      <div class="m-num">M2</div>
+      <h4>Industry 4.0</h4>
+      <p>Embrace Industry 4.0 technologies, interdisciplinary research, and collaborative learning environments.</p>
+      <div class="m-icon">⚙️</div>
+    </div>
+ 
+    <div class="m-card" onclick="selectCard(this, 2)" data-index="2">
+      <div class="m-num">M3</div>
+      <h4>Innovation &amp; Design</h4>
+      <p>Create an environment that fosters design thinking, innovation, and cross-disciplinary collaboration to address real-world engineering challenges.</p>
+      <div class="m-icon">💡</div>
+    </div>
+ 
+    <div class="m-card" onclick="selectCard(this, 3)" data-index="3">
+      <div class="m-num">M4</div>
+      <h4>Emerging Skills</h4>
+      <p>Equip students with industry-relevant skills in EV technology, additive manufacturing, robotics, and sustainable energy.</p>
+      <div class="m-icon">🤖</div>
+    </div>
+ 
+  </div>
+ 
+  <!-- Detail panel (expands on card click) -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="dp-label" id="dpLabel"></div>
+    <div class="dp-title" id="dpTitle"></div>
+    <p id="dpText"></p>
+    <div class="pills" id="dpPills"></div>
+  </div>
+ 
+</main>
+ 
+<footer>IILM University · Department of Mechanical &amp; Allied Engineering · Interactive Infographic</footer>
+ 
+<script>
+  const details = [
+    {
+      label: "Mission 1 — Core Principles",
+      title: "Outcome-Based Engineering Education",
+      text: "We deliver a robust curriculum grounded in mechanical and allied engineering fundamentals, ensuring every graduate can think analytically, solve problems critically, and adapt to evolving industry standards.",
+      pills: ["Fluid Mechanics", "Thermodynamics", "Materials Science", "Critical Thinking", "Outcome-Based Learning"]
+    },
+    {
+      label: "Mission 2 — Industry 4.0",
+      title: "Technology-Driven Interdisciplinary Research",
+      text: "By integrating IoT, AI-driven manufacturing, and smart systems into our curriculum, we prepare students for the fourth industrial revolution through collaborative research projects and cross-departmental initiatives.",
+      pills: ["IoT", "AI & ML", "Smart Manufacturing", "Collaborative Research", "Digital Twin"]
+    },
+    {
+      label: "Mission 3 — Innovation Culture",
+      title: "Design Thinking & Real-World Problem Solving",
+      text: "Our innovation labs and project-based learning model encourage students to tackle genuine societal and engineering challenges, fostering creativity, entrepreneurial mindsets, and cross-disciplinary teamwork.",
+      pills: ["Design Thinking", "Project-Based Learning", "Innovation Labs", "Prototyping", "Entrepreneurship"]
+    },
+    {
+      label: "Mission 4 — Emerging Technologies",
+      title: "Next-Generation Industry-Ready Skills",
+      text: "Specialized tracks in electric vehicle technology, additive manufacturing, advanced robotics, and sustainable energy systems ensure our graduates are ahead of the curve in the most rapidly growing engineering sectors.",
+      pills: ["EV Technology", "3D Printing", "Robotics", "Sustainable Energy", "Additive Manufacturing"]
+    }
+  ];
+ 
+  let activeIndex = -1;
+ 
+  function selectCard(el, idx) {
+    const cards = document.querySelectorAll('.m-card');
+    const panel = document.getElementById('detailPanel');
+ 
+    if (activeIndex === idx) {
+      // toggle off
+      el.classList.remove('active');
+      panel.classList.remove('open');
+      activeIndex = -1;
+      return;
+    }
+ 
+    cards.forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    activeIndex = idx;
+ 
+    const d = details[idx];
+    document.getElementById('dpLabel').textContent = d.label;
+    document.getElementById('dpTitle').textContent = d.title;
+    document.getElementById('dpText').textContent = d.text;
+ 
+    const pillBox = document.getElementById('dpPills');
+    pillBox.innerHTML = d.pills.map(p => `<span class="pill">${p}</span>`).join('');
+ 
+    // close then reopen for smooth transition on switch
+    panel.classList.remove('open');
+    setTimeout(() => panel.classList.add('open'), 50);
+  }
+ 
+  function toggleVision(el) {
+    const expanded = el.getAttribute('aria-expanded') === 'true';
+    el.setAttribute('aria-expanded', String(!expanded));
+    el.style.opacity = expanded ? '1' : '.85';
+  }
+</script>
+</body>
+</html>
